@@ -14,6 +14,14 @@ function init() {
 
 init();
 
+d3.selectAll("#selDataset").on("change", updatePlotly);
+
+function updatePlotly() {
+
+  var dropdownMenu = d3.select("#selDataset");
+
+  var dataset = dropdownMenu.property("value");
+
 
 d3.json("/data/samples.json").then((importedData) => {
     // console.log(importedData);
@@ -34,7 +42,7 @@ reversedData = slicedData.reverse();
 // Trace1 for the Greek Data
 var trace1 = {
   x: reversedData.map(object => object.sample_values),
-  y: reversedData.map(object => object.otu_ids),
+  y: reversedData.map(object => object.id),
   text: reversedData.map(object => object.out_labels),
   name: "Greek",
   type: "bar",
@@ -59,31 +67,9 @@ Plotly.newPlot("bar", data, layout)
 
 console.log(data.sample_values);
 
-var trace1 = {
-    x: data.otu_ids,
-    y: data.sample_values,
-    text: ['A<br>size: 40', 'B<br>size: 60', 'C<br>size: 80', 'D<br>size: 100'],
-    mode: 'markers',
-    marker: {
-      color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
-     
-    }
-  };
-  
-  var data = [trace1];
-  
-  var layout = {
-    title: 'Bubble Chart Hover Text',
-    showlegend: false,
-    height: 600,
-    width: 600
-  };
-  
-  Plotly.newPlot('bubble', data, layout);
-
 
 
 // Render the plot to the div tag with id "plot"
 
 
-});
+})};
