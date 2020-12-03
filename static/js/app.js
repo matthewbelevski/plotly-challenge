@@ -25,6 +25,7 @@ function updatePlotly() {
 
 d3.json("/data/samples.json").then((importedData) => {
     // console.log(importedData);
+
     var data = importedData.samples;
     console.log(importedData)
     // Sort the data array using the greekSearchResults value
@@ -39,10 +40,11 @@ slicedData = data.slice(0, 10);
 // Reverse the array to accommodate Plotly's defaults
 reversedData = slicedData.reverse();
 
+
 // Trace1 for the Greek Data
 var trace1 = {
   x: reversedData.map(object => object.sample_values),
-  y: reversedData.map(object => object.id),
+  y: reversedData.map(object => object.sample_values),
   text: reversedData.map(object => object.out_labels),
   name: "Greek",
   type: "bar",

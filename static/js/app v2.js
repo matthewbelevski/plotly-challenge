@@ -22,6 +22,7 @@ function optionChanged() {
     // console.log(importedData);
     
   var data = importedData.samples;
+  var mdata = importedData.metadata;
 
     //console.log(importedData);
 
@@ -33,25 +34,48 @@ function optionChanged() {
 
   var filteredData = data.filter(alien => alien.id === dataset);
 
-  console.log(filteredData);
+  var filteredMetadata = mdata.filter(a => a.id === parseInt(dataset));
+
+  //console.log(data);
+  //console.log(mdata);
+  //console.log(filteredData);
+  //console.log(filteredMetadata);
+
+  //console.log(filteredData);
   // Initialize an empty array for the country's data
 
+  // var test = filteredData.sample_values;
 
+  // console.log(test)
 
  var sortedSamplevalues = filteredData.sort(function(a, b) {
-    return parseFloat(b.sample_values) - parseFloat(a.sample_values);
+    return parseFloat(b) - parseFloat(a);
   });
 
-  //console.log(sortedSamplevalues)
+
+
+  //console.log(sortedSamplevalues);
 
 // Slice the first 10 objects for plotting
 slicedData = sortedSamplevalues.slice(0, 10);
+
+console.log(slicedData);
 
 // Reverse the array to accommodate Plotly's defaults
 reversedData = slicedData.reverse();
 
 
-console.log(sortedSamplevalues);
+d3.select("sample-metadata").selectAll("before")
+.selectAll("li")
+.data(filteredMetadata)
+.enter()
+.append("li")
+.text(function(d) {
+  return d;
+
+
+  });
+
 
 // Trace1 for the Greek Data
 var trace1 = {
