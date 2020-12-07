@@ -72,8 +72,8 @@ function buildBubbleChart() {
     var otu_ids_all = data[0].otu_ids;
     var otu_labels_all = data[0].otu_labels;
 
-    console.log(sampleValues_all);
-    console.log(otu_labels_all);
+    //console.log(sampleValues_all);
+   // console.log(otu_labels_all);
 
     var trace1 = {
       x: otu_ids_all,
@@ -125,14 +125,14 @@ function optionChanged() {
 
   var dataset = dropdownMenu.property("value");
 
-  var filteredData = data.filter(alien => alien.id === dataset);
+  var filteredData = data.filter(a => a.id === dataset);
 
   var filteredMetadata = mdata.filter(a => a.id === parseInt(dataset));
 
   //console.log(data);
   //console.log(mdata);
-  console.log(filteredData);
-  console.log(filteredMetadata);
+ // console.log(filteredData);
+ // console.log(filteredMetadata);
 
   //console.log(filteredData);
   // Initialize an empty array for the country's data
@@ -147,52 +147,44 @@ var bbtype = filteredMetadata[0].bbtype;
 var wfreq = filteredMetadata[0].wfreq;
 
 
-console.log(name);
 
- //console.log(test_sample_values);
+ console.log(id);
 
  //console.log(x);
  var sampleValues = filteredData[0].sample_values;
  var otu_ids = filteredData[0].otu_ids;
  var otu_labels = filteredData[0].otu_labels;
  
+ var clear = d3.select("#sample-metadata")
 
-//  var sortedSamplevalues = sampleValues.sort(function(a, b) {
-//     return parseFloat(b) - parseFloat(a);
-//   });
+ clear.html("")
 
-//   // var test = sampleValues.sort(function(a, b) {
-//   //   return parseFloat(b) - parseFloat(a);
-//   // });
-// // var indices = []
+var demo = d3.select("#sample-metadata").append("table").append("tbody")
 
 
-// console.log(sortedSamplevalues);
 
-// //var test = sortedSamplevalues.map(data => data.sample_values);
+function buildTable(id, ethnicity, gender, age, location, bbtype, wfreq) {
+  var demo_list = d3.select("tbody").append("tr");
+  
+  //var tbody = demo_list.select("li");
+  var trow;
+  //for (var i = 0; i < 12; i++) {
+    trow = demo_list.append("tr");
+    trow.append("tr").text(`id: ${filteredMetadata[0].id}`);
+    trow.append("tr").text(`ethnicity: ${filteredMetadata[0].ethnicity}`);
+    trow.append("tr").text(`gender: ${filteredMetadata[0].gender}`);
+    trow.append("tr").text(`age: ${filteredMetadata[0].age}`);
+    trow.append("tr").text(`location: ${filteredMetadata[0].location}`);
+    trow.append("tr").text(`bbtype: ${filteredMetadata[0].bbtype}`);
+    trow.append("tr").text(`wfreq: ${filteredMetadata[0].wfreq}`);
+  //}
+}
 
-// //console.log(test);
+buildTable();
 
-// // Slice the first 10 objects for plotting
-// slicedData = sortedSamplevalues.slice(0, 10);
-
-// //console.log(slicedData);
-
-// // Reverse the array to accommodate Plotly's defaults
-// reversedData = slicedData.reverse();
-
-// console.log(reversedData);
-
-d3.select(".sample-metadata").selectAll("div")
-.append("ul")
-.append("li")
-.data(filteredMetadata[0])
-.enter()
-.html(function(d) {
-  return `<li>${d.id}</li><li>${d.ethnicity}</li><li>${d.gender}</li><li>${d.location}</li><li>${d.wfreq}</li><li>${d.bbtype}</li>`;
+//console.log(filteredMetadata[0]);
 
 
-  });
 
 // Trace1 for the Greek Data
 var yticks = otu_ids.slice(0,10).map(id => `OTU ${id}`).reverse()
@@ -223,18 +215,9 @@ margin: {
 
 Plotly.newPlot("bar", data1, layout)
 
-// function updatePlotly(newdata) {
-//   Plotly.restyle("pie", "values", [newdata]);
-// }
 
 }
 
-
-
-// Update the restyled plot's values
-// function updatePlotly(newdata) {
-//   Plotly.restyle("pie", "values", [newdata]);
-// }
 
   )};
 init();
