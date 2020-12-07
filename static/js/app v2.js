@@ -16,7 +16,7 @@ var selector = d3.select("#selDataset");
     //console.log(importedData);
 
     var data = importedData.samples;
-      
+    var mdata = importedData.metadata;
     //console.log(data);
 
     var filteredData = data.filter(alien => alien.id === "940"); 
@@ -53,7 +53,39 @@ var selector = d3.select("#selDataset");
 
     Plotly.newPlot("bar", data1, layout)
 
+    var filteredMetadata = mdata.filter(a => a.id === 940);
+
+    var clear = d3.select("#sample-metadata")
+
+    clear.html("")
+   
+   var demo = d3.select("#sample-metadata").append("table").append("tbody")
+   
+
+   
+   function buildTable(id, ethnicity, gender, age, location, bbtype, wfreq) {
+     var demo_list = d3.select("tbody").append("tr");
+     
+     //var tbody = demo_list.select("li");
+     var trow;
+     //for (var i = 0; i < 12; i++) {
+       trow = demo_list.append("tr");
+       trow.append("tr").text(`id: ${filteredMetadata[0].id}`);
+       trow.append("tr").text(`ethnicity: ${filteredMetadata[0].ethnicity}`);
+       trow.append("tr").text(`gender: ${filteredMetadata[0].gender}`);
+       trow.append("tr").text(`age: ${filteredMetadata[0].age}`);
+       trow.append("tr").text(`location: ${filteredMetadata[0].location}`);
+       trow.append("tr").text(`bbtype: ${filteredMetadata[0].bbtype}`);
+       trow.append("tr").text(`wfreq: ${filteredMetadata[0].wfreq}`);
+     //}
+   }
+   
+   buildTable();
+   
+
         });
+
+        
     }
 
 function unpack(rows, index) {
