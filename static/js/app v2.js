@@ -2,7 +2,7 @@
 function init() {
   //selects the drop down, and imports the data from json file
 var selector = d3.select("#selDataset");
-    d3.json("/data/samples.json").then((importedData) => {
+    d3.json("samples.json").then((importedData) => {
 
       //sets the names
         var names = importedData.names;
@@ -177,7 +177,7 @@ var selector = d3.select("#selDataset");
 function buildBubbleChart() {
 
   //imports the data
-  d3.json("/data/samples.json").then((importedData) => {
+  d3.json("samples.json").then((importedData) => {
 
     var data = importedData.samples;
 
@@ -220,7 +220,7 @@ buildBubbleChart();
 function optionChanged() {
 
   //imports the data
-  d3.json("/data/samples.json").then((importedData) => {
+  d3.json("samples.json").then((importedData) => {
      //console.log(importedData);
     
 //assigns the sample data and the metadata
